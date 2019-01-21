@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <table>
+            <tr>
+                <td><input type="text" name="xnombre" id="xnombre"></td>
+            </tr>
+            <tr>
+                <td><button id="btnEnviar">Enviar</button></td>
+            </tr>
+        </table>
+    </div>
+    
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+        
+        var socket = io.connect('http://localhost:3000')
+        
+        var nombre = $('#xnombre')
+        var button = $('#btnEnviar')
+
+        button.click(function(){
+            socket.emit('new_message', {message: nombre.val()})
+        })
+
+    </script>
+</body>
+</html>
