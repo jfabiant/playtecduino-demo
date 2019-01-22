@@ -166,6 +166,7 @@
                         <td class="tabmax">
                             <a href="#" class="hide-link tooltipped" onclick="copiarCodigo()" id="copy-button" data-tooltip="I am tooltip" data-clipboard-target="content_arduino" data-clipboard-text="Clip Me!"><i class="small material-icons">content_copy</i></a>
                             <a href="#" class="hide-link tooltipped" id="discard" onclick="discard()" data-tooltip="I am tooltip"><i class="small material-icons">delete</i></a>
+                            <button id="myButton">mi boton</button>
                             <a href="#" class="hide-link tooltipped" data-tooltip="I am tooltip" id="save" onclick="save()"><i class="small material-icons">cloud_download</i></a>
                             <a href="#" class="hide-link tooltipped" id="fakeload" data-tooltip="I am tooltip"><i class="small material-icons">cloud_upload</i></a>
                             <a class="hide-link dropdown-button" href="#" data-activates="dropdown1"><i class="small material-icons">arrow_drop_down</i></a>
@@ -176,10 +177,16 @@
             </td>
         </tr>
         <tr>
-            <td height="99%" id="content_area"></td>
+            <td height="99%" id="content_area">
+            </td>
         </tr>
     </table>
-    <div id="content_blocks" class="content"></div>
+    <!-- Script transaction !-->  
+    <div id="transfer">
+        <div id="content_blocks" class="content">
+        </div>
+    </div>
+    <!-- Fin script transaction-->  
     <textarea id="content_arduino" class="content" readonly wrap="off"></textarea>
 
     <xml id="toolbox" style="display: none">
@@ -433,7 +440,6 @@
         </value>
     </block>
 </category>
-
 <% } %>
 <% if (clase == null) {  %>
 <category id="category_array">
@@ -1394,16 +1400,33 @@
     <script>
         
         var socket = io();
-    
+        
         $var1 = 30
-        console.log($var1)
-
+        
         function copiarCodigo() {
             var lol = document.getElementById('content_arduino');
             lol.select();
             document.execCommand("copy");
         }
-        //document.getElementById('copy-button')
+        
+        $("#myButton").click(function(){
+            //var transformValue = $('<g>').prop('transform');
+            //var countTag = $('g[transform="translate(113, 238)"]').length;
+            //$(".g").attr("href")
+            //console.log (document.getElementsByTagName('g').length);
+            //console.log($("<g>").attr("transform"))
+            //console.log (document.getElementsByClassName('blocklyPathDark').length);
+            
+            var myDiv = document.getElementById("transfer")
+            var divClone = myDiv.cloneNode(true)
+            $a = divClone
+            
+            /* Transformation to text plane 
+            var str = divClone.prop('outerHTML');*/
+            console.log('a'+divClone.toString())
+            socket.emit('new_message', {message: divClone})
+            
+        })
 
     </script>
 </body>

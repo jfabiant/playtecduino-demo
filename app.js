@@ -23,7 +23,7 @@ const server = app.listen(3000, function(){
 var io = require('socket.io')(server);
 
 io.on('connection', function(socket){
-    console.log('a user connected');
+    //console.log('a user connected');
     socket.on('new_message', function(data){
         console.log(data.message)
     })
