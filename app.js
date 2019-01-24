@@ -26,7 +26,7 @@ io.on('connection', function(socket){
     //console.log('a user connected');
     socket.on('new_message', function(data){
         //broadcast the new message
-        io.sockets.emit('new_message', {message : data.message});
+        socket.broadcast.emit('new_message', {message : data.message});
     })
 });
 

@@ -1406,20 +1406,23 @@
             lol.select();
             document.execCommand("copy");
         }
+        
 
+        /* Agregar atributo name a la etiqueta g > transform (Group) y envialo
+        por socket */
         var myDiv = document.getElementById("content_blocks")
-
+        
         $("#myButton").click(function(){
-
+            
             var divClone = myDiv.cloneNode(true)
-
+            
             //console.log(divClone.innerHTML)
             socket.emit('new_message', {message: divClone.innerHTML})
         })
 
         socket.on("new_message", (data) => {
             console.log(data.message)
-            myDiv.replaceWith(data.message)
+            $('#content_blocks').html(data.message);
         })
 
     </script>
