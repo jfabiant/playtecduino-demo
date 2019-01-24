@@ -181,12 +181,12 @@
             </td>
         </tr>
     </table>
+    
     <!-- Script transaction !-->  
-    <div id="transfer">
-        <div id="content_blocks" class="content">
-        </div>
+    <div id="content_blocks" class="content">
     </div>
-    <!-- Fin script transaction-->  
+    <!-- Fin script transaction-->
+    
     <textarea id="content_arduino" class="content" readonly wrap="off"></textarea>
 
     <xml id="toolbox" style="display: none">
@@ -1400,32 +1400,26 @@
     <script>
         
         var socket = io();
-        
-        $var1 = 30
-        
+
         function copiarCodigo() {
             var lol = document.getElementById('content_arduino');
             lol.select();
             document.execCommand("copy");
         }
-        
+
+        var myDiv = document.getElementById("content_blocks")
+
         $("#myButton").click(function(){
-            //var transformValue = $('<g>').prop('transform');
-            //var countTag = $('g[transform="translate(113, 238)"]').length;
-            //$(".g").attr("href")
-            //console.log (document.getElementsByTagName('g').length);
-            //console.log($("<g>").attr("transform"))
-            //console.log (document.getElementsByClassName('blocklyPathDark').length);
-            
-            var myDiv = document.getElementById("transfer")
+
             var divClone = myDiv.cloneNode(true)
-            $a = divClone
-            
-            /* Transformation to text plane 
-            var str = divClone.prop('outerHTML');*/
-            console.log('a'+divClone.toString())
-            socket.emit('new_message', {message: divClone})
-            
+
+            //console.log(divClone.innerHTML)
+            socket.emit('new_message', {message: divClone.innerHTML})
+        })
+
+        socket.on("new_message", (data) => {
+            console.log(data.message)
+            myDiv.replaceWith(data.message)
         })
 
     </script>

@@ -20,12 +20,13 @@ const server = app.listen(3000, function(){
 })
 
 /* sockets */
-var io = require('socket.io')(server);
+const io = require('socket.io')(server);
 
 io.on('connection', function(socket){
     //console.log('a user connected');
     socket.on('new_message', function(data){
-        console.log(data.message)
+        //broadcast the new message
+        io.sockets.emit('new_message', {message : data.message});
     })
 });
 
