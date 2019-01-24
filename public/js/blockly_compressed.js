@@ -924,6 +924,7 @@ goog.string.remove = function(a, b) {
     return a.replace(b, "")
 };
 goog.string.removeAll = function(a, b) {
+    
     var c = new RegExp(goog.string.regExpEscape(b), "g");
     return a.replace(c, "")
 };
