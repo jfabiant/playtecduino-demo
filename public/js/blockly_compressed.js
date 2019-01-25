@@ -924,7 +924,6 @@ goog.string.remove = function(a, b) {
     return a.replace(b, "")
 };
 goog.string.removeAll = function(a, b) {
-    
     var c = new RegExp(goog.string.regExpEscape(b), "g");
     return a.replace(c, "")
 };
@@ -22731,6 +22730,7 @@ Blockly.Flyout.prototype.position_ = function() {
             b = a.absoluteLeft;
             Blockly.RTL && (b += a.viewWidth, b -= this.width_);
             this.svgGroup_.setAttribute("transform", "translate(" + b + "," + a.absoluteTop + ")");
+            this.svgGroup_.setAttribute("name", "Holamundo");
             this.height_ = a.viewHeight;
             this.scrollbar_ && this.scrollbar_.resize()
         }
