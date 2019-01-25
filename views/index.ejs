@@ -1413,10 +1413,10 @@
 
             var id = socket.io.engine.id;
             console.log(id)
-
+            
             /* Mandar las funciones constructoras de bloques por los 
             sockets */
-            
+
             var myDiv = document.getElementById("content_blocks")
             var myBody = $("#body")
             
@@ -1429,7 +1429,7 @@
                 console.log(data.message)
                 $('#content_blocks').html(data.message);
             })
-            
+
         })
 
 

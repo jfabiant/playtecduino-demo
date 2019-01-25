@@ -3,10 +3,8 @@ const router = express.Router()
 
 router.get('/', function(req, res){
     var clase = 1
-    res.render('index', {clase})
-})
-router.get('/chat', function(req, res){
-    res.render('chat')
+    var sessionId = req.session.id
+    res.render('index', {clase, sessionId})
 })
 
 module.exports = router

@@ -2,6 +2,16 @@ const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
 const path = require('path')
+const cookieParser = require('cookie-parser');
+const session = require('express-session')
+
+/* setup session express */
+app.use(cookieParser());
+app.use(session({
+    secret: 'welcomeToArea51', //short string secret
+    resave: false,
+    saveUninitialized: true
+}));
 
 /* view engine setup */
 app.set('views', path.join(__dirname, 'views'))
