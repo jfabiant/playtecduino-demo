@@ -10,7 +10,7 @@
     <script type="text/javascript" src="js/header.js"></script>
 </head>
 
-<body>
+<body id="body">
     <nav style="height:70px">
         <div class="nav-wrapper">
             <a href="#" class="brand-logo" style="color:#039be5"><img height="100%"src="images/playedu-icon.png" style="height: 80%;margin-right: 20px;vertical-align: middle;" title="Hi!">PlaytecDuino</a>
@@ -166,7 +166,6 @@
                         <td class="tabmax">
                             <a href="#" class="hide-link tooltipped" onclick="copiarCodigo()" id="copy-button" data-tooltip="I am tooltip" data-clipboard-target="content_arduino" data-clipboard-text="Clip Me!"><i class="small material-icons">content_copy</i></a>
                             <a href="#" class="hide-link tooltipped" id="discard" onclick="discard()" data-tooltip="I am tooltip"><i class="small material-icons">delete</i></a>
-                            <button id="myButton">mi boton</button>
                             <a href="#" class="hide-link tooltipped" data-tooltip="I am tooltip" id="save" onclick="save()"><i class="small material-icons">cloud_download</i></a>
                             <a href="#" class="hide-link tooltipped" id="fakeload" data-tooltip="I am tooltip"><i class="small material-icons">cloud_upload</i></a>
                             <a class="hide-link dropdown-button" href="#" data-activates="dropdown1"><i class="small material-icons">arrow_drop_down</i></a>
@@ -1399,6 +1398,8 @@
     
     <script>
         
+    $(document).ready(function(){
+        
         var socket = io();
 
         function copiarCodigo() {
@@ -1406,24 +1407,33 @@
             lol.select();
             document.execCommand("copy");
         }
-        
-        /* Mandar las funciones constructoras de bloques por los 
-        sockets: */
-        
-        var myDiv = document.getElementById("content_blocks")
-        
-        $("#myButton").click(function(){
+
+        /* client-side */
+        socket.on('connect', function(){
+
+            var id = socket.io.engine.id;
+            console.log(id)
+
+            /* Mandar las funciones constructoras de bloques por los 
+            sockets */
             
-            var divClone = myDiv.cloneNode(true)
+            var myDiv = document.getElementById("content_blocks")
+            var myBody = $("#body")
             
-            //console.log(divClone.innerHTML)
-            socket.emit('new_message', {message: divClone.innerHTML})
+            myBody.mousemove(function(){
+                var divClone = myDiv.cloneNode(true)
+                socket.emit('new_message', {message: divClone.innerHTML})
+            })
+
+            socket.on("new_message", (data) => {
+                console.log(data.message)
+                $('#content_blocks').html(data.message);
+            })
+            
         })
 
-        socket.on("new_message", (data) => {
-            console.log(data.message)
-            $('#content_blocks').html(data.message);
-        })
+
+    });
 
     </script>
 </body>
