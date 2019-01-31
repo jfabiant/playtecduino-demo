@@ -164,7 +164,7 @@
                         <td id="tab_arduino" class="taboff" onclick="tabClick('arduino')"></td>
                         <td class="tabmin"> </td>
                         <td class="tabmax">
-                            <a href="#" class="hide-link tooltipped" onclick="copiarCodigo()" id="copy-button" data-tooltip="I am tooltip" data-clipboard-target="content_arduino" data-clipboard-text="Clip Me!"><i class="small material-icons">content_copy</i></a>
+                            <a href="#copied" class="hide-link tooltipped" onclick="copiarCodigo()" id="copy-button" data-tooltip="I am tooltip" data-clipboard-target="content_arduino" data-clipboard-text="Clip Me!"><i class="small material-icons">content_copy</i></a>
                             <a href="#" class="hide-link tooltipped" id="discard" onclick="discard()" data-tooltip="I am tooltip"><i class="small material-icons">delete</i></a>
                             <a href="#" class="hide-link tooltipped" data-tooltip="I am tooltip" id="save" onclick="save()"><i class="small material-icons">cloud_download</i></a>
                             <a href="#" class="hide-link tooltipped" id="fakeload" data-tooltip="I am tooltip"><i class="small material-icons">cloud_upload</i></a>
@@ -1398,43 +1398,14 @@
     
     <script>
         
-    $(document).ready(function(){
-        
-        var socket = io();
+    var socket = io();
 
-        function copiarCodigo() {
-            var lol = document.getElementById('content_arduino');
-            lol.select();
-            document.execCommand("copy");
-        }
-
-        /* client-side */
-        socket.on('connect', function(){
-
-            var id = socket.io.engine.id;
-            console.log(id)
-            
-            /* Mandar las funciones constructoras de bloques por los 
-            sockets */
-
-            var myDiv = document.getElementById("content_blocks")
-            var myBody = $("#body")
-            
-            myBody.mousemove(function(){
-                var divClone = myDiv.cloneNode(true)
-                socket.emit('new_message', {message: divClone.innerHTML})
-            })
-
-            socket.on("new_message", (data) => {
-                console.log(data.message)
-                $('#content_blocks').html(data.message);
-            })
-
-        })
-
-
-    });
-
+    function copiarCodigo() {
+        var lol = document.getElementById('content_arduino');
+        lol.select();
+        document.execCommand("copy");
+    }
+    
     </script>
 </body>
 
