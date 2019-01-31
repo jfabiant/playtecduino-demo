@@ -115,7 +115,7 @@ function init() {
 
   //var toolbox = document.getElementById('toolbox');
   var toolbox = buildtoolBox();
-  Blockly.inject(document.getElementById('content_blocks'),{
+  var primaryWorkspace = Blockly.inject(document.getElementById('content_blocks'),{
     grid:
     {spacing: 25,
      length: 3,
@@ -406,6 +406,9 @@ window.onload = function () {
 };
 
 $(document).ready(function(){
+  
+  console.log('Hoal mundo desde init.js')
+
   $('#textarea_export').focus(function(){
     $(this).select();
   });

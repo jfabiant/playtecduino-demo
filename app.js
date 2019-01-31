@@ -29,15 +29,22 @@ const server = app.listen(3000, function(){
     console.log('http://localhost:3000')
 })
 
+var myArray = [{}]
+
 /* sockets */
 const io = require('socket.io')(server);
 
 io.on('connection', function(socket){
-    //console.log('a user connected');
+    
+    //Mandando mensaje (event)
     socket.on('new_message', function(data){
-        //broadcast the new message
-        socket.broadcast.emit('new_message', {message : data.message});
-    })
+        //console.log(data.message);
+        //console.log("***************************************");
+        //myArray.push(data.message);
+        myArray = data.message
+        socket.broadcast.emit('new_message', {message : myArray});
+    });
+    
 });
 
 module.exports = app
